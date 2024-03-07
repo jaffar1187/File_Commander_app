@@ -18,7 +18,7 @@ const start = async () => {
 
   //async iterator
   for await (const event of watcher) {
-    //Checking if file is change
+    //Checking if file is changed
     if (event.eventType === "change" && event.filename === "command.txt")
       commandFileHandler.emit("change");
   }
@@ -114,9 +114,7 @@ const addTofile = async (path, data) => {
 const renameFile = async (old_file_path, new_file_path) => {
   try {
     // Checking if file already exists, In case it does not exists we will get an error.
-    console.log(old_file_path, new_file_path);
-    const existingFileHandle = await fs.open(old_file_path, "r");
-    await existingFileHandle.close();
+    await fileExistsCheck(old_file_path);
     console.log("Renaming file...");
     await fs.rename(old_file_path, new_file_path);
     return console.log(`The file is been successfully renamed.`);
