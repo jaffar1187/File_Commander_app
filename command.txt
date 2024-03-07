@@ -1,1 +1,1 @@
-create a file /Users/mastermindapple/Desktop/UNCC-code/File_commander_app/new-file.txt
+rename a file /Users/mastermindapple/Desktop/UNCC-code/File_commander_app/new-file.txt /Users/mastermindapple/Desktop/UNCC-code/File_commander_app/new-file-renamed.txt
