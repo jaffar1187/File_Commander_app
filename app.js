@@ -7,23 +7,6 @@ const ADD_TO_FILE = "add to the file";
 
 let commandFileHandler;
 
-const start = async () => {
-  // Opening the file so that it can be read later.
-  commandFileHandler = await fs.open(command_file, "r");
-  //Handling changes
-  commandFileHandler.on("change", changesHandler);
-
-  //Watcher..
-  const watcher = fs.watch(command_file); //Watching for changes
-
-  //async iterator
-  for await (const event of watcher) {
-    //Checking if file is changed
-    if (event.eventType === "change" && event.filename === "command.txt")
-      commandFileHandler.emit("change");
-  }
-};
-
 const changesHandler = async () => {
   //getting the file size so that we can save memory later in buffer allocation.
   const size = (await commandFileHandler.stat()).size;
@@ -124,4 +107,21 @@ const renameFile = async (old_file_path, new_file_path) => {
 };
 
 //Initiating.
+const start = async () => {
+  // Opening the file so that it can be read later.
+  commandFileHandler = await fs.open(command_file, "r");
+  //Handling changes
+  commandFileHandler.on("change", changesHandler);
+
+  //Watcher..
+  const watcher = fs.watch(command_file); //Watching for changes
+
+  //async iterator
+  for await (const event of watcher) {
+    //Checking if file is changed
+    if (event.eventType === "change" && event.filename === "command.txt")
+      commandFileHandler.emit("change");
+  }
+};
+
 start();
