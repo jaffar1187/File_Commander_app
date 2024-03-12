@@ -108,13 +108,13 @@ const renameFile = async (old_file_path, new_file_path) => {
 
 //Initiating.
 const start = async () => {
+  const watcher = fs.watch(command_file); //Watching for changes
   // Opening the file so that it can be read later.
   commandFileHandler = await fs.open(command_file, "r");
   //Handling changes
   commandFileHandler.on("change", changesHandler);
 
-  //Watcher..
-  const watcher = fs.watch(command_file); //Watching for changes
+  //Watching..
 
   //async iterator
   for await (const event of watcher) {
